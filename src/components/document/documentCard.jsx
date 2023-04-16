@@ -74,6 +74,7 @@ const DocumentCard = ({ document }) => {
         const fetchParentLinks = async () => {
             const response = await getParentLinksByUrl(encodeURIComponent(url));
             if (response.status != 200) {
+                console.log("Error: " + response.status);
                 setFiveParentLinksDisplay([]);
                 return;
             }
