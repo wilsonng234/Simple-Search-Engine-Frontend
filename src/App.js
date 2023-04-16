@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import logo from "./logo.svg";
 import "./App.css";
 import getAllDocuments from "./api/getAllDocuments.js";
-import { AppTextField, AppDocumentCards, AppSearchIcon } from "./App.styles";
+import { AppTextField, AppDocumentCards } from "./App.styles";
 
 function App() {
     const [documents, setDocuments] = useState([]);
