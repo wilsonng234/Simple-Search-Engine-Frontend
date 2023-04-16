@@ -29,7 +29,7 @@ const DocumentCard = ({ document }) => {
 
     const [wordFreqs, setWordFreqs] = React.useState({});
     const [wordIdToWordBinding, setWordIdToWordBinding] = React.useState({});
-    const [fiveParentLinksDisplay, setFiveParentLinksDisplay] = React.useState(
+    const [tenParentLinksDisplay, setTenParentLinksDisplay] = React.useState(
         []
     );
 
@@ -75,18 +75,18 @@ const DocumentCard = ({ document }) => {
             const response = await getParentLinksByUrl(encodeURIComponent(url));
             if (response.status != 200) {
                 console.log("Error: " + response.status);
-                setFiveParentLinksDisplay([]);
+                setTenParentLinksDisplay([]);
                 return;
             }
 
             const parentLinks = response.data.parentUrls;
 
-            const fiveParentLinksDisplay = parentLinks
-                .slice(0, 5)
+            const tenParentLinksDisplay = parentLinks
+                .slice(0, 10)
                 .map((parentLink) => {
                     return <LinkTypography key={parentLink} url={parentLink} />;
                 });
-            setFiveParentLinksDisplay(fiveParentLinksDisplay);
+            setTenParentLinksDisplay(tenParentLinksDisplay);
         };
         fetchParentLinks();
     }, []);
@@ -103,8 +103,8 @@ const DocumentCard = ({ document }) => {
             }, []);
     };
 
-    const fiveChildrenUrls = childrenUrls
-        .slice(0, 5)
+    const tenChildrenUrls = childrenUrls
+        .slice(0, 10)
         .map((childUrl) => <LinkTypography key={childUrl} url={childUrl} />);
 
     return (
@@ -139,11 +139,11 @@ const DocumentCard = ({ document }) => {
                 <Typography variant="body1" color="text.secondary">
                     Child Links:
                 </Typography>
-                {fiveChildrenUrls}
+                {tenChildrenUrls}
                 <Typography variant="body1" color="text.secondary">
                     Parent Links:
                 </Typography>
-                {fiveParentLinksDisplay}
+                {tenParentLinksDisplay}
             </CardContent>
         </Card>
     );
