@@ -1,13 +1,7 @@
 import React from "react";
 import "./documentCard.css";
 
-import {
-    Card,
-    CardContent,
-    Divider,
-    Typography,
-    withStyles,
-} from "@mui/material";
+import { Card, CardContent, Divider, Typography } from "@mui/material";
 import LinkTypography from "./linkTypography";
 import TitleTypography from "./titleTypography";
 import KeyValueDisplay from "./keyValueDisplay";
@@ -22,7 +16,7 @@ const DocumentCard = ({ document }) => {
         size,
         title,
         lastModificationDate,
-        titleWordIDFreqsMap,
+        // titleWordIDFreqsMap,
         bodyWordIDFreqsMap,
         childrenUrls,
     } = document;
@@ -45,7 +39,7 @@ const DocumentCard = ({ document }) => {
         };
 
         fetchWordIdFreqs();
-    }, []);
+    }, [bodyWordIDFreqsMap]);
 
     React.useEffect(() => {
         const renameKeys = (obj, newKeys) => {
@@ -68,12 +62,12 @@ const DocumentCard = ({ document }) => {
         };
 
         fetchWordIdFreqs();
-    }, [wordIdToWordBinding]);
+    }, [bodyWordIDFreqsMap, wordIdToWordBinding]);
 
     React.useEffect(() => {
         const fetchParentLinks = async () => {
             const response = await getParentLinksByUrl(encodeURIComponent(url));
-            if (response.status != 200) {
+            if (response.status !== 200) {
                 console.log("Error: " + response.status);
                 setTenParentLinksDisplay([]);
                 return;
@@ -89,7 +83,7 @@ const DocumentCard = ({ document }) => {
             setTenParentLinksDisplay(tenParentLinksDisplay);
         };
         fetchParentLinks();
-    }, []);
+    }, [url]);
 
     const getRandomKWordFreqsDisplay = (k) => {
         return Object.keys(wordFreqs)
