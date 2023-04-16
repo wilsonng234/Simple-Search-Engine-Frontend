@@ -72,7 +72,7 @@ const DocumentCard = ({ document }) => {
 
     React.useEffect(() => {
         const fetchParentLinks = async () => {
-            const response = await getParentLinksByUrl(url);
+            const response = await getParentLinksByUrl(encodeURIComponent(url));
             if (response.status != 200) {
                 setFiveParentLinksDisplay([]);
                 return;
