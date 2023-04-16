@@ -126,7 +126,7 @@ const DocumentCard = ({ document }) => {
                 <Divider sx={{ mt: "10px", mb: "10px" }} />
 
                 <Typography variant="body1" color="text.secondary">
-                    {lastModificationDate + "; " + size}
+                    {new Date(lastModificationDate) + ", " + size}
                 </Typography>
 
                 <Typography variant="body1" color="text.secondary">
