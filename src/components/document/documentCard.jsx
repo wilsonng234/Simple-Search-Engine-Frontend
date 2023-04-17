@@ -6,10 +6,9 @@ import LinkTypography from "./linkTypography";
 import TitleTypography from "./titleTypography";
 import KeyValueDisplay from "./keyValueDisplay";
 
-import getWordByWordId from "../../api/getWordByWordId";
 import getParentLinksByUrl from "../../api/getParentLinksByUrl";
 
-const DocumentCard = ({ document }) => {
+const DocumentCard = ({ document, wordIdToWordBinding }) => {
     const {
         docId,
         url,
@@ -22,24 +21,9 @@ const DocumentCard = ({ document }) => {
     } = document;
 
     const [wordFreqs, setWordFreqs] = React.useState({});
-    const [wordIdToWordBinding, setWordIdToWordBinding] = React.useState({});
     const [tenParentLinksDisplay, setTenParentLinksDisplay] = React.useState(
         []
     );
-
-    React.useEffect(() => {
-        const fetchWordIdFreqs = async () => {
-            const wordIdToWordBinding = {};
-            for (const property in bodyWordIDFreqsMap) {
-                const wordId = property;
-                const response = await getWordByWordId(wordId);
-                wordIdToWordBinding[wordId] = response.data.word;
-            }
-            setWordIdToWordBinding(wordIdToWordBinding);
-        };
-
-        fetchWordIdFreqs();
-    }, [bodyWordIDFreqsMap]);
 
     React.useEffect(() => {
         const renameKeys = (obj, newKeys) => {
