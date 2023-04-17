@@ -7,9 +7,11 @@ import TitleTypography from "./titleTypography";
 import KeyValueDisplay from "./keyValueDisplay";
 
 import getParentLinksByUrl from "../../api/getParentLinksByUrl";
+import ScoreTypography from "./scoreTypography";
 
 const DocumentCard = ({ document }) => {
     const {
+        score,
         docId,
         url,
         size,
@@ -75,6 +77,8 @@ const DocumentCard = ({ document }) => {
             }}
         >
             <CardContent>
+                {score !== "NaN" && <ScoreTypography score={score} />}
+
                 <TitleTypography title={title} />
                 <LinkTypography url={url} />
                 <Divider sx={{ mt: "10px", mb: "10px" }} />
