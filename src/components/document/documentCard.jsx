@@ -8,45 +8,21 @@ import KeyValueDisplay from "./keyValueDisplay";
 
 import getParentLinksByUrl from "../../api/getParentLinksByUrl";
 
-const DocumentCard = ({ document, wordIdToWordBinding }) => {
+const DocumentCard = ({ document }) => {
     const {
         docId,
         url,
         size,
         title,
         lastModificationDate,
-        // titleWordIDFreqsMap,
-        bodyWordIDFreqsMap,
+        titleWordFreqs,
+        bodyWordFreqs,
         childrenUrls,
     } = document;
 
-    const [wordFreqs, setWordFreqs] = React.useState({});
     const [tenParentLinksDisplay, setTenParentLinksDisplay] = React.useState(
         []
     );
-
-    React.useEffect(() => {
-        const renameKeys = (obj, newKeys) => {
-            const entries = Object.keys(obj).map((key) => {
-                const newKey = newKeys[key] || key;
-
-                return { [newKey]: obj[key] };
-            });
-
-            return Object.assign({}, ...entries);
-        };
-
-        const fetchWordIdFreqs = () => {
-            const wordFreqsMap = renameKeys(
-                bodyWordIDFreqsMap,
-                wordIdToWordBinding
-            );
-
-            setWordFreqs(wordFreqsMap);
-        };
-
-        fetchWordIdFreqs();
-    }, [bodyWordIDFreqsMap, wordIdToWordBinding]);
 
     React.useEffect(() => {
         const fetchParentLinks = async () => {
@@ -69,17 +45,28 @@ const DocumentCard = ({ document, wordIdToWordBinding }) => {
         fetchParentLinks();
     }, [url]);
 
-    const getRandomKWordFreqsDisplay = (k) => {
-        return Object.keys(wordFreqs)
+    const getTopKWordFreqsDisplay = (k) => {
+        return bodyWordFreqs
             .slice(0, k)
-            .reduce((result, word) => {
-                const freq = wordFreqs[word];
-                result.push(
-                    <KeyValueDisplay key={word} left={word} right={freq} />
-                );
-                return result;
-            }, []);
-    };
+            .map((bodyWordFreq) => (
+                <KeyValueDisplay
+                    key={bodyWordFreq.first}
+                    left={bodyWordFreq.first}
+                    right={bodyWordFreq.second}
+                />
+            ));
+    }
+    //     console.log(bodyWordFreqs);
+    //     return Object.keys(bodyWordFreqs)
+    //         .slice(0, k)
+    //         .reduce((result, word) => {
+    //             const freq = bodyWordFreqs[word];
+    //             result.push(
+    //                 <KeyValueDisplay key={word} left={word} right={freq} />
+    //             );
+    //             return result;
+    //         }, []);
+    // };
 
     const tenChildrenUrls = childrenUrls
         .slice(0, 10)
@@ -111,7 +98,7 @@ const DocumentCard = ({ document, wordIdToWordBinding }) => {
                     Top10 Word Frequencies
                 </Typography>
                 <div className="flex-container">
-                    {getRandomKWordFreqsDisplay(10)}
+                    {getTopKWordFreqsDisplay(10)}
                 </div>
 
                 <Typography variant="body1" color="text.secondary">

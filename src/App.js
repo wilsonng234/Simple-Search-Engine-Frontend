@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import logo from "./logo.svg";
 import "./App.css";
 import getAllDocuments from "./api/getAllDocuments.js";
-import getDocumentsByQuery from './api/getDocumentsByQuery';
+import getDocumentsByQuery from "./api/getDocumentsByQuery";
 import { AppTextField, AppDocumentCards } from "./App.styles";
 
 function App() {
