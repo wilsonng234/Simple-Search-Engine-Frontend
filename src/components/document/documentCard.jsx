@@ -15,7 +15,7 @@ const DocumentCard = ({ document }) => {
         size,
         title,
         lastModificationDate,
-        titleWordFreqs,
+        // titleWordFreqs,
         bodyWordFreqs,
         childrenUrls,
     } = document;
@@ -55,18 +55,7 @@ const DocumentCard = ({ document }) => {
                     right={bodyWordFreq.second}
                 />
             ));
-    }
-    //     console.log(bodyWordFreqs);
-    //     return Object.keys(bodyWordFreqs)
-    //         .slice(0, k)
-    //         .reduce((result, word) => {
-    //             const freq = bodyWordFreqs[word];
-    //             result.push(
-    //                 <KeyValueDisplay key={word} left={word} right={freq} />
-    //             );
-    //             return result;
-    //         }, []);
-    // };
+    };
 
     const tenChildrenUrls = childrenUrls
         .slice(0, 10)
