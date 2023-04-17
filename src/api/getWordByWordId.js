@@ -5,6 +5,7 @@ const getWordByWordId = async (wordId) => {
         return await api.get(`/api/v1/words?wordId=${wordId}`);
     } catch (error) {
         console.log(error);
+        return Promise.reject(error);
     }
 };
 

@@ -1,17 +1,19 @@
-import { useState, useEffect } from "react";
+import React from "react";
+
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 
 import logo from "./logo.svg";
 import "./App.css";
 import getAllDocuments from "./api/getAllDocuments.js";
+import getDocumentsByQuery from "./api/getDocumentsByQuery";
 import { AppTextField, AppDocumentCards } from "./App.styles";
 
 function App() {
-    const [documents, setDocuments] = useState([]);
-    const [query, setQuery] = useState("");
+    const [documents, setDocuments] = React.useState([]);
+    const [query, setQuery] = React.useState("");
 
-    useEffect(() => {
+    React.useEffect(() => {
         const fetchDocuments = async () => {
             const response = await getAllDocuments();
             setDocuments(response.data);
@@ -19,6 +21,15 @@ function App() {
 
         fetchDocuments();
     }, []);
+
+    React.useEffect(() => {
+        const fetchDocumentsByQuery = async () => {
+            const response = await getDocumentsByQuery(query);
+            setDocuments(response.data);
+        };
+
+        fetchDocumentsByQuery();
+    }, [query]);
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter") {

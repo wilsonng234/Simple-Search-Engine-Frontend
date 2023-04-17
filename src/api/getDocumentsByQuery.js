@@ -1,9 +1,9 @@
 import api from "./axiosConfig.js";
 
-const getParentLinksByUrl = async (url) => {
+const getDocumentsByQuery = async (query) => {
     try {
         return await api.get(
-            `/api/v1/parentLinks?url=${encodeURIComponent(url)}`
+            `/api/v1/searchEngine?query=${encodeURIComponent(query)}`
         );
     } catch (error) {
         console.log(error);
@@ -11,4 +11,4 @@ const getParentLinksByUrl = async (url) => {
     }
 };
 
-export default getParentLinksByUrl;
+export default getDocumentsByQuery;

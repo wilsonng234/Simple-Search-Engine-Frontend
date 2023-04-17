@@ -6,67 +6,29 @@ import LinkTypography from "./linkTypography";
 import TitleTypography from "./titleTypography";
 import KeyValueDisplay from "./keyValueDisplay";
 
-import getWordByWordId from "../../api/getWordByWordId";
 import getParentLinksByUrl from "../../api/getParentLinksByUrl";
+import ScoreTypography from "./scoreTypography";
 
 const DocumentCard = ({ document }) => {
     const {
+        score,
         docId,
         url,
         size,
         title,
         lastModificationDate,
-        // titleWordIDFreqsMap,
-        bodyWordIDFreqsMap,
+        // titleWordFreqs,
+        bodyWordFreqs,
         childrenUrls,
     } = document;
 
-    const [wordFreqs, setWordFreqs] = React.useState({});
-    const [wordIdToWordBinding, setWordIdToWordBinding] = React.useState({});
     const [tenParentLinksDisplay, setTenParentLinksDisplay] = React.useState(
         []
     );
 
     React.useEffect(() => {
-        const fetchWordIdFreqs = async () => {
-            const wordIdToWordBinding = {};
-            for (const property in bodyWordIDFreqsMap) {
-                const wordId = property;
-                const response = await getWordByWordId(wordId);
-                wordIdToWordBinding[wordId] = response.data.word;
-            }
-            setWordIdToWordBinding(wordIdToWordBinding);
-        };
-
-        fetchWordIdFreqs();
-    }, [bodyWordIDFreqsMap]);
-
-    React.useEffect(() => {
-        const renameKeys = (obj, newKeys) => {
-            const entries = Object.keys(obj).map((key) => {
-                const newKey = newKeys[key] || key;
-
-                return { [newKey]: obj[key] };
-            });
-
-            return Object.assign({}, ...entries);
-        };
-
-        const fetchWordIdFreqs = () => {
-            const wordFreqsMap = renameKeys(
-                bodyWordIDFreqsMap,
-                wordIdToWordBinding
-            );
-
-            setWordFreqs(wordFreqsMap);
-        };
-
-        fetchWordIdFreqs();
-    }, [bodyWordIDFreqsMap, wordIdToWordBinding]);
-
-    React.useEffect(() => {
         const fetchParentLinks = async () => {
-            const response = await getParentLinksByUrl(encodeURIComponent(url));
+            const response = await getParentLinksByUrl(url);
             if (response.status !== 200) {
                 console.log("Error: " + response.status);
                 setTenParentLinksDisplay([]);
@@ -85,16 +47,16 @@ const DocumentCard = ({ document }) => {
         fetchParentLinks();
     }, [url]);
 
-    const getRandomKWordFreqsDisplay = (k) => {
-        return Object.keys(wordFreqs)
+    const getTopKWordFreqsDisplay = (k) => {
+        return bodyWordFreqs
             .slice(0, k)
-            .reduce((result, word) => {
-                const freq = wordFreqs[word];
-                result.push(
-                    <KeyValueDisplay key={word} left={word} right={freq} />
-                );
-                return result;
-            }, []);
+            .map((bodyWordFreq) => (
+                <KeyValueDisplay
+                    key={bodyWordFreq.first}
+                    left={bodyWordFreq.first}
+                    right={bodyWordFreq.second}
+                />
+            ));
     };
 
     const tenChildrenUrls = childrenUrls
@@ -115,29 +77,57 @@ const DocumentCard = ({ document }) => {
             }}
         >
             <CardContent>
+                {score !== "NaN" && <ScoreTypography score={score} />}
+
                 <TitleTypography title={title} />
                 <LinkTypography url={url} />
                 <Divider sx={{ mt: "10px", mb: "10px" }} />
 
-                <Typography variant="body1" color="text.secondary">
-                    {new Date(lastModificationDate) + ", " + size}
-                </Typography>
+                <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    children={new Date(lastModificationDate) + ", " + size}
+                />
 
-                <Typography variant="body1" color="text.secondary">
-                    Top10 Word Frequencies
-                </Typography>
+                <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    children="Top10 Word Frequencies"
+                />
+
                 <div className="flex-container">
-                    {getRandomKWordFreqsDisplay(10)}
+                    {getTopKWordFreqsDisplay(10)}
                 </div>
 
-                <Typography variant="body1" color="text.secondary">
-                    Child Links:
-                </Typography>
-                {tenChildrenUrls}
-                <Typography variant="body1" color="text.secondary">
-                    Parent Links:
-                </Typography>
-                {tenParentLinksDisplay}
+                <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    children="Child Links:"
+                />
+                {tenChildrenUrls.length > 0 ? (
+                    tenChildrenUrls
+                ) : (
+                    <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        children="No Children Links"
+                    />
+                )}
+
+                <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    children="Parent Links:"
+                />
+                {tenParentLinksDisplay.length > 0 ? (
+                    tenParentLinksDisplay
+                ) : (
+                    <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        children="No Parent Links"
+                    />
+                )}
             </CardContent>
         </Card>
     );
