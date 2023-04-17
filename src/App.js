@@ -24,7 +24,6 @@ function App() {
 
     React.useEffect(() => {
         const fetchDocumentsByQuery = async () => {
-            console.log("start use query")
             const response = await getDocumentsByQuery(query);
             setDocuments(response.data);
         };
