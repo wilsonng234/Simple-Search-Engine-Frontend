@@ -83,25 +83,51 @@ const DocumentCard = ({ document }) => {
                 <LinkTypography url={url} />
                 <Divider sx={{ mt: "10px", mb: "10px" }} />
 
-                <Typography variant="body1" color="text.secondary">
-                    {new Date(lastModificationDate) + ", " + size}
-                </Typography>
+                <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    children={new Date(lastModificationDate) + ", " + size}
+                />
 
-                <Typography variant="body1" color="text.secondary">
-                    Top10 Word Frequencies
-                </Typography>
+                <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    children="Top10 Word Frequencies"
+                />
+
                 <div className="flex-container">
                     {getTopKWordFreqsDisplay(10)}
                 </div>
 
-                <Typography variant="body1" color="text.secondary">
-                    Child Links:
-                </Typography>
-                {tenChildrenUrls}
-                <Typography variant="body1" color="text.secondary">
-                    Parent Links:
-                </Typography>
-                {tenParentLinksDisplay}
+                <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    children="Child Links:"
+                />
+                {tenChildrenUrls.length > 0 ? (
+                    tenChildrenUrls
+                ) : (
+                    <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        children="No Children Links"
+                    />
+                )}
+
+                <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    children="Parent Links:"
+                />
+                {tenParentLinksDisplay.length > 0 ? (
+                    tenParentLinksDisplay
+                ) : (
+                    <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        children="No Parent Links"
+                    />
+                )}
             </CardContent>
         </Card>
     );
