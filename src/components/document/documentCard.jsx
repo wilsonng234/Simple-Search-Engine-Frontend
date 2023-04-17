@@ -66,7 +66,7 @@ const DocumentCard = ({ document }) => {
 
     React.useEffect(() => {
         const fetchParentLinks = async () => {
-            const response = await getParentLinksByUrl(encodeURIComponent(url));
+            const response = await getParentLinksByUrl(url);
             if (response.status !== 200) {
                 console.log("Error: " + response.status);
                 setTenParentLinksDisplay([]);
