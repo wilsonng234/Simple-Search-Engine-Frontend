@@ -13,6 +13,7 @@ function App() {
     const [query, setQuery] = React.useState("");
     const [showLoading, setShowLoading] = React.useState(false);
 
+    /*  // Fetch all documents when the component is mounted
     React.useEffect(() => {
         const fetchDocuments = async () => {
             const response = await getAllDocuments();
@@ -21,6 +22,7 @@ function App() {
 
         fetchDocuments();
     }, []);
+    */
 
     React.useEffect(() => {
         const fetchDocumentsByQuery = async () => {
