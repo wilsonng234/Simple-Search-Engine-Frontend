@@ -27,13 +27,17 @@ function App() {
     React.useEffect(() => {
         const fetchDocumentsByQuery = async () => {
             setShowLoading(true);
-            const response = await getDocumentsByQuery(query);
-            setDocuments(response.data);
-            setShowLoading(false);
+            try {
+                const response = await getDocumentsByQuery(query);
+                setDocuments(response.data);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setShowLoading(false);
+            }
         };
 
-        if (query.length !== 0)
-            fetchDocumentsByQuery();
+        if (query.length !== 0) fetchDocumentsByQuery();
     }, [query]);
 
     return (
@@ -42,13 +46,11 @@ function App() {
                 <img src={logo} className="App-logo" alt="logo" />
 
                 <SearchBar setQuery={setQuery} />
-                {showLoading && (
-                    <ReactLoading type={"bars"} color="#0080FF" />
-                )}
+                {showLoading && <ReactLoading type={"bars"} color="#0080FF" />}
                 {!showLoading && <AppDocumentCards documents={documents} />}
             </header>
         </div>
     );
-}   
+}
 
 export default App;
