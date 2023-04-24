@@ -17,7 +17,7 @@ const DocumentCard = ({ document }) => {
         size,
         title,
         lastModificationDate,
-        // titleWordFreqs,
+        titleWordFreqs,
         bodyWordFreqs,
         childrenUrls,
     } = document;
@@ -48,13 +48,34 @@ const DocumentCard = ({ document }) => {
     }, [url]);
 
     const getTopKWordFreqsDisplay = (k) => {
-        return bodyWordFreqs
+        const combinedWordFreqs = bodyWordFreqs.map((element) => ({
+            ...element,
+        }));
+
+        for (const titleWordFreq of titleWordFreqs.map((element) => ({
+            ...element,
+        }))) {
+            const idx = combinedWordFreqs.findIndex(
+                (combinedWordFreq) =>
+                    combinedWordFreq.first === titleWordFreq.first
+            );
+
+            console.log(title);
+            if (idx === -1) {
+                combinedWordFreqs.push(titleWordFreq);
+            } else {
+                combinedWordFreqs[idx].second += titleWordFreq.second;
+            }
+        }
+
+        combinedWordFreqs.sort((a, b) => b.second - a.second);
+        return combinedWordFreqs
             .slice(0, k)
-            .map((bodyWordFreq) => (
+            .map((combinedWordFreq) => (
                 <KeyValueDisplay
-                    key={bodyWordFreq.first}
-                    left={bodyWordFreq.first}
-                    right={bodyWordFreq.second}
+                    key={combinedWordFreq.first}
+                    left={combinedWordFreq.first}
+                    right={combinedWordFreq.second}
                 />
             ));
     };
