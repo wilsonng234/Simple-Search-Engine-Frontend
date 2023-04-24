@@ -29,7 +29,9 @@ function App() {
             setDocuments(response.data);
             setShowLoading(false);
         };
-        fetchDocumentsByQuery();
+
+        if (query.length != 0)
+            fetchDocumentsByQuery();
     }, [query]);
 
     return (
