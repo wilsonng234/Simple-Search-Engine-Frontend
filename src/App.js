@@ -1,18 +1,19 @@
 import React from "react";
 
-import SearchIcon from "@mui/icons-material/Search";
-import IconButton from "@mui/material/IconButton";
-
 import logo from "./logo.svg";
 import "./App.css";
-import getAllDocuments from "./api/getAllDocuments.js";
+// import getAllDocuments from "./api/getAllDocuments.js";
 import getDocumentsByQuery from "./api/getDocumentsByQuery";
-import { AppTextField, AppDocumentCards } from "./App.styles";
+import { AppDocumentCards } from "./App.styles";
+import SearchBar from "./components/search-bar/searchBar";
+import ReactLoading from "react-loading";
 
 function App() {
     const [documents, setDocuments] = React.useState([]);
     const [query, setQuery] = React.useState("");
+    const [showLoading, setShowLoading] = React.useState(false);
 
+    /*  // Fetch all documents when the component is mounted
     React.useEffect(() => {
         const fetchDocuments = async () => {
             const response = await getAllDocuments();
@@ -21,47 +22,33 @@ function App() {
 
         fetchDocuments();
     }, []);
+    */
 
     React.useEffect(() => {
         const fetchDocumentsByQuery = async () => {
+            setShowLoading(true);
             const response = await getDocumentsByQuery(query);
             setDocuments(response.data);
+            setShowLoading(false);
         };
 
-        fetchDocumentsByQuery();
+        if (query.length !== 0)
+            fetchDocumentsByQuery();
     }, [query]);
-
-    const handleKeyDown = (event) => {
-        if (event.key === "Enter") {
-            setQuery(event.target.value);
-        }
-    };
-
-    const handleSearchIconClick = () => {
-        setQuery(document.getElementById("search-bar").value);
-    };
 
     return (
         <div className="App">
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
-                <AppTextField
-                    id="search-bar"
-                    label="Enter your query"
-                    InputProps={{
-                        endAdornment: (
-                            <IconButton
-                                children={<SearchIcon />}
-                                onClick={handleSearchIconClick}
-                            />
-                        ),
-                    }}
-                    onKeyDown={handleKeyDown}
-                />
-                <AppDocumentCards documents={documents} />
+
+                <SearchBar setQuery={setQuery} />
+                {showLoading && (
+                    <ReactLoading type={"bars"} color="#0080FF" />
+                )}
+                {!showLoading && <AppDocumentCards documents={documents} />}
             </header>
         </div>
     );
-}
+}   
 
 export default App;
