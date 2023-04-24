@@ -2,7 +2,7 @@ import React from "react";
 
 import logo from "./logo.svg";
 import "./App.css";
-import getAllDocuments from "./api/getAllDocuments.js";
+// import getAllDocuments from "./api/getAllDocuments.js";
 import getDocumentsByQuery from "./api/getDocumentsByQuery";
 import { AppDocumentCards } from "./App.styles";
 import SearchBar from "./components/search-bar/searchBar";
@@ -32,7 +32,7 @@ function App() {
             setShowLoading(false);
         };
 
-        if (query.length != 0)
+        if (query.length !== 0)
             fetchDocumentsByQuery();
     }, [query]);
 
