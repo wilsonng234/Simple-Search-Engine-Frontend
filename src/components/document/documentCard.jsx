@@ -60,7 +60,6 @@ const DocumentCard = ({ document }) => {
                     combinedWordFreq.first === titleWordFreq.first
             );
 
-            console.log(title);
             if (idx === -1) {
                 combinedWordFreqs.push(titleWordFreq);
             } else {
