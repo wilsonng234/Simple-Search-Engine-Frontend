@@ -27,8 +27,6 @@ const CrawlerDialog = ({ openCrawlerDialog, setOpenCrawlerDialog }) => {
     const handleSubmitCrawlingRequest = async () => {
         try {
             setShowLoading(true);
-            console.log(urlRef.current.value === "");
-            console.log(pagesRef.current.value.length === 0);
             await postCrawlingRequest(
                 urlRef.current.value,
                 pagesRef.current.value
