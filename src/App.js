@@ -2,16 +2,21 @@ import React from "react";
 
 import logo from "./logo.svg";
 import "./App.css";
-// import getAllDocuments from "./api/getAllDocuments.js";
+
 import getDocumentsByQuery from "./api/getDocumentsByQuery";
 import { AppDocumentCards } from "./App.styles";
 import SearchBar from "./components/search-bar/searchBar";
 import ReactLoading from "react-loading";
+import CrawlerDialog from "./components/crawler-dialog/crawlerDialog";
+import { Button } from "@mui/material";
+
+// import getAllDocuments from "./api/getAllDocuments.js";
 
 function App() {
     const [documents, setDocuments] = React.useState([]);
     const [query, setQuery] = React.useState("");
     const [showLoading, setShowLoading] = React.useState(false);
+    const [openCrawlerDialog, setOpenCrawlerDialog] = React.useState(false);
 
     /*  // Fetch all documents when the component is mounted
     React.useEffect(() => {
@@ -40,15 +45,28 @@ function App() {
         if (query.length !== 0) fetchDocumentsByQuery();
     }, [query]);
 
+    const handleClickOpenDialog = () => {
+        setOpenCrawlerDialog(true);
+    };
+
     return (
         <div className="App">
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
-
                 <SearchBar setQuery={setQuery} />
                 {showLoading && <ReactLoading type={"bars"} color="#0080FF" />}
                 {!showLoading && <AppDocumentCards documents={documents} />}
             </header>
+
+            <Button
+                variant="outlined"
+                onClick={handleClickOpenDialog}
+                children={"Crawler"}
+            />
+            <CrawlerDialog
+                openCrawlerDialog={openCrawlerDialog}
+                setOpenCrawlerDialog={setOpenCrawlerDialog}
+            />
         </div>
     );
 }
