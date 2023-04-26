@@ -1,6 +1,6 @@
 import React from "react";
 
-import logo from "./logo.svg";
+import logo from "./icon/logo.svg";
 import "./App.css";
 
 import getDocumentsByQuery from "./api/getDocumentsByQuery";
@@ -8,7 +8,6 @@ import { AppDocumentCards } from "./App.styles";
 import SearchBar from "./components/search-bar/searchBar";
 import ReactLoading from "react-loading";
 import CrawlerDialog from "./components/crawler-dialog/crawlerDialog";
-import { Button } from "@mui/material";
 
 // import getAllDocuments from "./api/getAllDocuments.js";
 
@@ -52,17 +51,17 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
+                <img
+                    src={logo}
+                    className="App-logo"
+                    alt="logo"
+                    onClick={handleClickOpenDialog}
+                />
                 <SearchBar setQuery={setQuery} />
                 {showLoading && <ReactLoading type={"bars"} color="#0080FF" />}
                 {!showLoading && <AppDocumentCards documents={documents} />}
             </header>
 
-            <Button
-                variant="outlined"
-                onClick={handleClickOpenDialog}
-                children={"Crawler"}
-            />
             <CrawlerDialog
                 openCrawlerDialog={openCrawlerDialog}
                 setOpenCrawlerDialog={setOpenCrawlerDialog}
