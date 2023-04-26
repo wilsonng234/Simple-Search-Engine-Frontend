@@ -1,9 +1,15 @@
 import api from "./axiosConfig.js";
 
 const postCrawlingRequest = async (url, pages) => {
-    return await api.post(
-        `/api/v1/crawler?url=${encodeURIComponent(url)}&pages=${pages}`
-    );
+    let endpoint = `/api/v1/crawler?`;
+    if (url !== "") {
+        endpoint += `url=${encodeURIComponent(url)}&`;
+    }
+    if (pages !== "") {
+        endpoint += `pages=${pages}`;
+    }
+
+    return await api.post(endpoint);
 };
 
 export default postCrawlingRequest;
