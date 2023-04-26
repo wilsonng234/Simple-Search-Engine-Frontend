@@ -6,6 +6,7 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
+    Divider,
     Typography,
 } from "@mui/material";
 import postCrawlingRequest from "../../api/postCrawlingRequest";
@@ -83,6 +84,7 @@ const CrawlerDialog = ({ openCrawlerDialog, setOpenCrawlerDialog }) => {
                                 "To crawl the websites, please enter the seed url and number of pages to crawl."
                             }
                         />
+                        <Divider sx={{ marginTop: "10px" }} />
                         <TextField
                             autoFocus
                             margin="dense"
@@ -90,7 +92,7 @@ const CrawlerDialog = ({ openCrawlerDialog, setOpenCrawlerDialog }) => {
                             label="url"
                             type="url"
                             fullWidth
-                            variant="standard"
+                            variant="filled"
                             inputRef={urlRef}
                         />
                         <TextField
@@ -100,7 +102,7 @@ const CrawlerDialog = ({ openCrawlerDialog, setOpenCrawlerDialog }) => {
                             label="pages"
                             type="number"
                             fullWidth
-                            variant="standard"
+                            variant="filled"
                             inputRef={pagesRef}
                         />
                     </>
