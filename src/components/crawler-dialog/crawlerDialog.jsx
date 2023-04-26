@@ -42,13 +42,8 @@ const CrawlerDialog = ({ openCrawlerDialog, setOpenCrawlerDialog }) => {
     return (
         <Dialog open={openCrawlerDialog} onClose={handleClickCloseDialog}>
             <DialogTitle
-                children={
-                    !showLoading ? (
-                        <Typography variant={"h5"} children={"Crawler"} />
-                    ) : (
-                        <Typography variant={"h5"} children={"Crawling"} />
-                    )
-                }
+                variant="h5"
+                children={!showLoading ? "Crawler" : "Crawling"}
             />
             <DialogContent>
                 {!showLoading && (
