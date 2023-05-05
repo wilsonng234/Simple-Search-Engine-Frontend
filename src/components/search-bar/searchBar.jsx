@@ -69,32 +69,27 @@ const SearchBar = ({ setQuery }) => {
 
             setUpRecommendations();
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }, [queryDisplayed]);
 
     const handleOnChange = (event) => {
         setQueryDisplayed(event.target.value);
-        console.log(event.target.value);
     };
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter") {
             setQuery(queryDisplayed);
             setOpenRecommendations(false);
-            console.log(queryDisplayed);
-            event.stopPropagation();
         }
     };
 
     const handleSearchIconClick = () => {
         setQuery(queryDisplayed);
-        console.log(queryDisplayed);
     };
 
     const handleOnSelectItem = (event, newValue) => {
         setQueryDisplayed(newValue);
-        console.log(newValue);
     };
 
     const handleOpenRecommendations = (event) => {

@@ -6,7 +6,7 @@ const getParentLinksByUrl = async (url) => {
             `/api/v1/parentLinks?url=${encodeURIComponent(url)}`
         );
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return Promise.reject(error);
     }
 };

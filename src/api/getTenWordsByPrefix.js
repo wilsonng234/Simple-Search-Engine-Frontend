@@ -6,7 +6,7 @@ const getTenWordByPrefix = async (prefix) => {
             `/api/v1/words/prefix?prefix=${(prefix)}`
         );
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return Promise.reject(error);
     }
 };
