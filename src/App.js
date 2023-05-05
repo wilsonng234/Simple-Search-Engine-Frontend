@@ -9,24 +9,12 @@ import SearchBar from "./components/search-bar/searchBar";
 import ReactLoading from "react-loading";
 import CrawlerDialog from "./components/crawler-dialog/crawlerDialog";
 
-// import getAllDocuments from "./api/getAllDocuments.js";
 
 function App() {
     const [documents, setDocuments] = React.useState([]);
     const [query, setQuery] = React.useState("");
     const [showLoading, setShowLoading] = React.useState(false);
     const [openCrawlerDialog, setOpenCrawlerDialog] = React.useState(false);
-
-    /*  // Fetch all documents when the component is mounted
-    React.useEffect(() => {
-        const fetchDocuments = async () => {
-            const response = await getAllDocuments();
-            setDocuments(response.data);
-        };
-
-        fetchDocuments();
-    }, []);
-    */
 
     React.useEffect(() => {
         const fetchDocumentsByQuery = async () => {

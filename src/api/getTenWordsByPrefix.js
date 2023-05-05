@@ -1,9 +1,9 @@
 import api from "./axiosConfig.js";
 
-const getParentLinksByUrl = async (url) => {
+const getTenWordByPrefix = async (prefix) => {
     try {
         return await api.get(
-            `/api/v1/parentLinks?url=${encodeURIComponent(url)}`
+            `/api/v1/words/prefix?prefix=${(prefix)}`
         );
     } catch (error) {
         console.error(error);
@@ -11,4 +11,4 @@ const getParentLinksByUrl = async (url) => {
     }
 };
 
-export default getParentLinksByUrl;
+export default getTenWordByPrefix;

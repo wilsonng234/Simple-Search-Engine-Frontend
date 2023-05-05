@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { TextField } from "@mui/material";
+import { Autocomplete } from "@mui/material";
 
-const SearchBarTextField = styled(TextField)({
+const SearchBarAutocomplete = styled(Autocomplete)({
     marginBottom: "20px",
     width: "60%",
 
@@ -10,4 +10,4 @@ const SearchBarTextField = styled(TextField)({
     },
 });
 
-export default SearchBarTextField;
+export default SearchBarAutocomplete;
