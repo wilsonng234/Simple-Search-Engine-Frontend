@@ -10,6 +10,7 @@ import SearchBarAutocomplete from "./searchBar.styles";
 const SearchBar = ({ setQuery }) => {
     // This is only for query display purposes
     const [queryDisplayed, setQueryDisplayed] = React.useState("");
+    const [openRecommendations, setOpenRecommendations] = React.useState(false);
     const [recommendations, setRecommendations] = React.useState([
         "test",
         "test page",
@@ -17,19 +18,35 @@ const SearchBar = ({ setQuery }) => {
 
     const handleOnChange = (event) => {
         setQueryDisplayed(event.target.value);
+        console.log(event.target.value);
     };
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter") {
-            console.log(queryDisplayed);
             setQuery(queryDisplayed);
+            setOpenRecommendations(false);
+            console.log(queryDisplayed);
+            event.stopPropagation();
         }
     };
 
     const handleSearchIconClick = () => {
-        console.log(queryDisplayed);
         setQuery(queryDisplayed);
+        console.log(queryDisplayed);
     };
+
+    const handleOnSelectItem = (event, newValue) => {
+        setQueryDisplayed(newValue);
+        console.log(newValue);
+    };
+
+    const handleOpenRecommendations = (event) => {
+        setOpenRecommendations(true);
+    }
+
+    const handleCloseRecommendations = (event) => {
+        setOpenRecommendations(false);
+    }
 
     const handleRenderInput = (params) => {
         return (
@@ -38,9 +55,9 @@ const SearchBar = ({ setQuery }) => {
                 id="search-bar-textfield"
                 label="Enter your query"
                 onChange={handleOnChange}
-                onKeyDown={handleKeyDown}
                 InputProps={{
                     ...params.InputProps,
+                    onKeyDown: handleKeyDown,
                     endAdornment: (
                         <IconButton
                             children={<SearchIcon />}
@@ -58,6 +75,11 @@ const SearchBar = ({ setQuery }) => {
             freeSolo
             disableClearable
             options={recommendations}
+            filterOptions={(option) => option}
+            onChange={handleOnSelectItem}
+            open={openRecommendations}
+            onOpen={handleOpenRecommendations}
+            onClose={handleCloseRecommendations}
             renderInput={handleRenderInput}
         ></SearchBarAutocomplete>
     );
