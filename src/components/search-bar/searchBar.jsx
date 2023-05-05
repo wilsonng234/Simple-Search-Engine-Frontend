@@ -12,26 +12,62 @@ const SearchBar = ({ setQuery }) => {
     // This is only for query display purposes
     const [queryDisplayed, setQueryDisplayed] = React.useState("");
     const [openRecommendations, setOpenRecommendations] = React.useState(false);
-    const [recommendations, setRecommendations] = React.useState([
-        "test",
-        "test page",
-    ]);
+    const [recommendations, setRecommendations] = React.useState([]);
 
     React.useEffect(() => {
         try {
-            const fetchRecommendations = async () => {
-                const prefix = queryDisplayed;
-                let fetchedRecommendations = await getTenWordsByPrefix(prefix);
-                fetchedRecommendations = fetchedRecommendations.data;
-                fetchedRecommendations = fetchedRecommendations.map(
-                    (item) => item.word
-                );
+            const fetchRecommendations = async (lastKWords) => {
+                const response = await getTenWordsByPrefix(lastKWords);
+                const data = response.data;
+                const recommendations = data.map((item) => item.word);
 
-                setRecommendations(fetchedRecommendations);
-                // setRecommendations(fetchedRecommendations.data);
+                return recommendations;
             };
 
-            fetchRecommendations();
+            const prefix = queryDisplayed;
+            const prefixSplit = prefix.trim().split(/\s+/);
+            let recommendations = new Set();
+
+            const setUpRecommendations = async () => {
+                let getTenAlready = false;
+                for (
+                    let numPrefix = Math.min(3, prefixSplit.length);
+                    numPrefix >= 1;
+                    numPrefix--
+                ) {
+                    const firstWords = prefixSplit
+                        .slice(0, -numPrefix)
+                        .join(" ");
+                    const lastKWords = prefixSplit.slice(-numPrefix).join(" ");
+                    const newRecommendations = await fetchRecommendations(
+                        lastKWords
+                    );
+
+                    for (let i = 0; i < newRecommendations.length; i++) {
+                        newRecommendations[i] =
+                            firstWords + " " + newRecommendations[i];
+                        recommendations.add(newRecommendations[i]);
+
+                        if (recommendations.size >= 10) {
+                            getTenAlready = true;
+                            break;
+                        }
+                    }
+
+                    if (getTenAlready) break;
+                }
+
+                let temp = [...recommendations];
+                const idx = temp.findIndex((item) => item === prefix);
+                if (idx !== -1) {
+                    temp[idx] = temp[0];
+                    temp[0] = prefix;
+                }
+
+                setRecommendations(temp);
+            };
+
+            setUpRecommendations();
         } catch (error) {
             console.log(error);
         }
