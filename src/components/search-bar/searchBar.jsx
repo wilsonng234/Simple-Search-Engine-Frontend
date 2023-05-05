@@ -1,11 +1,12 @@
 import React from "react";
 
-import MenuItem from "@mui/material/MenuItem";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 
 import SearchBarAutocomplete from "./searchBar.styles";
+
+import getTenWordsByPrefix from "../../api/getTenWordsByPrefix";
 
 const SearchBar = ({ setQuery }) => {
     // This is only for query display purposes
@@ -15,6 +16,26 @@ const SearchBar = ({ setQuery }) => {
         "test",
         "test page",
     ]);
+
+    React.useEffect(() => {
+        try {
+            const fetchRecommendations = async () => {
+                const prefix = queryDisplayed;
+                let fetchedRecommendations = await getTenWordsByPrefix(prefix);
+                fetchedRecommendations = fetchedRecommendations.data;
+                fetchedRecommendations = fetchedRecommendations.map(
+                    (item) => item.word
+                );
+
+                setRecommendations(fetchedRecommendations);
+                // setRecommendations(fetchedRecommendations.data);
+            };
+
+            fetchRecommendations();
+        } catch (error) {
+            console.log(error);
+        }
+    }, [queryDisplayed]);
 
     const handleOnChange = (event) => {
         setQueryDisplayed(event.target.value);
@@ -42,11 +63,11 @@ const SearchBar = ({ setQuery }) => {
 
     const handleOpenRecommendations = (event) => {
         setOpenRecommendations(true);
-    }
+    };
 
     const handleCloseRecommendations = (event) => {
         setOpenRecommendations(false);
-    }
+    };
 
     const handleRenderInput = (params) => {
         return (
