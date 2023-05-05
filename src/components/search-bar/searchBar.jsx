@@ -44,8 +44,11 @@ const SearchBar = ({ setQuery }) => {
                     );
 
                     for (let i = 0; i < newRecommendations.length; i++) {
-                        newRecommendations[i] =
-                            firstWords + " " + newRecommendations[i];
+                        newRecommendations[i] = (
+                            firstWords +
+                            " " +
+                            newRecommendations[i]
+                        ).trim();
                         recommendations.add(newRecommendations[i]);
 
                         if (recommendations.size >= 10) {
@@ -90,6 +93,7 @@ const SearchBar = ({ setQuery }) => {
 
     const handleOnSelectItem = (event, newValue) => {
         setQueryDisplayed(newValue);
+        setQuery(newValue);
     };
 
     const handleOpenRecommendations = (event) => {
@@ -109,7 +113,6 @@ const SearchBar = ({ setQuery }) => {
                 onChange={handleOnChange}
                 InputProps={{
                     ...params.InputProps,
-                    onKeyDown: handleKeyDown,
                     endAdornment: (
                         <IconButton
                             children={<SearchIcon />}
@@ -132,6 +135,7 @@ const SearchBar = ({ setQuery }) => {
             open={openRecommendations}
             onOpen={handleOpenRecommendations}
             onClose={handleCloseRecommendations}
+            onKeyDown={handleKeyDown}
             renderInput={handleRenderInput}
         ></SearchBarAutocomplete>
     );
