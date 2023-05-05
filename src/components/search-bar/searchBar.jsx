@@ -1,9 +1,17 @@
+import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 
 import SearchBarTextField from "./searchBar.styles";
 
 const SearchBar = ({ setQuery }) => {
+    // This is only for query display purposes
+    const [queryDisplayed, setQueryDisplayed] = React.useState("");
+
+    const handleOnChange = (event) => {
+        setQueryDisplayed(event.target.value);
+    };
+
     const handleKeyDown = (event) => {
         if (event.key === "Enter") {
             setQuery(event.target.value);
@@ -26,7 +34,9 @@ const SearchBar = ({ setQuery }) => {
                     />
                 ),
             }}
+            onChange={handleOnChange}
             onKeyDown={handleKeyDown}
+            value={queryDisplayed}
         />
     );
 };
