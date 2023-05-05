@@ -44,11 +44,13 @@ const SearchBar = ({ setQuery }) => {
                     );
 
                     for (let i = 0; i < newRecommendations.length; i++) {
-                        newRecommendations[i] = (
-                            firstWords +
-                            " " +
-                            newRecommendations[i]
-                        ).trim();
+                        newRecommendations[i] =
+                            firstWords + " " + newRecommendations[i];
+                        newRecommendations[i] = newRecommendations[i].trim();
+                        newRecommendations[i] = newRecommendations[i].replace(
+                            /[^a-zA-Z0-9\s]/g,
+                            ""
+                        );
                         recommendations.add(newRecommendations[i]);
 
                         if (recommendations.size >= 10) {
