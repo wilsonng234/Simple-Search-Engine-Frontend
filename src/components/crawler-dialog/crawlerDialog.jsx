@@ -14,31 +14,38 @@ import Loading from "react-loading";
 const CrawlerDialog = ({ openCrawlerDialog, setOpenCrawlerDialog }) => {
     const urlRef = React.useRef("");
     const pagesRef = React.useRef(0);
+    const [intervalId, setIntervalId] = React.useState(null);
     const [showLoading, setShowLoading] = React.useState(false);
     const [timeLoading, setTimeLoading] = React.useState(0);
 
     React.useEffect(() => {
-        let intervalId = null;
         if (showLoading) {
-            intervalId = setInterval(
-                () => setTimeLoading(timeLoading + 1),
-                1000
-            );
+            if (!intervalId) {
+                const start = Date.now();
 
-            return () => clearInterval(intervalId);
+                setIntervalId(
+                    setInterval(
+                        () => setTimeLoading((Date.now() - start) / 1000),
+                        1000
+                    )
+                );
+            }
         } else {
             setTimeLoading(0);
+            clearInterval(intervalId);
+            setIntervalId(null);
         }
-    }, [showLoading, timeLoading]);
+    }, [showLoading, intervalId]);
 
     const formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
+        const remainingSeconds = Math.floor(seconds % 60);
 
         const minutesDisplay = minutes < 10 ? `0${minutes}` : minutes;
         const secondsDisplay =
             remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
 
+        console.log(`${minutesDisplay}:${secondsDisplay}`);
         return `${minutesDisplay}:${secondsDisplay}`;
     };
 
