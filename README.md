@@ -1,9 +1,17 @@
 # Simple Search Engine UI
 
+## Installation
+
+NodeJS: version 16.15.1  
+
 ## Getting started
 
-Run `npm start` in the development mode.  
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. `npm install` to install the dependencies
+2. `npm start` to run the UI
+3. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+[Optional]  
+The api endpoint could be modified in [axiosConfig.js](src/api/axiosConfig.js)
 
 ## Crawler
 
