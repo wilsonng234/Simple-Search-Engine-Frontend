@@ -2,7 +2,7 @@
 
 ## Installation
 
-NodeJS: version 16.15.1  
+NodeJS: version 16.15.1
 
 ## Getting started
 
@@ -13,22 +13,22 @@ NodeJS: version 16.15.1
 [Optional]  
 The api endpoint could be modified in [axiosConfig.js](src/api/axiosConfig.js)
 
-## Crawler
+### Crawler form:
 
-Click the React icon and a dialog will be shown.  
-Specify seed url and number of pages to crawl and submit the form.
+<img src="imgs/crawlerForm.png" alt="crawler form" width="800" />
 
-![crawler dialog](img/crawler.png)
+### Crawling:
 
-## Search Bar
+<img src="imgs/crawling.png" alt="crawling" width="800" />
 
-Enter the query to search and click enter or submit icon to search top 50 relevant pages indexed.
+### Query recommendation:
 
-![search bar](img/searchBar.png)
-![search result](img/searchResult.png)
+<img src="imgs/queryRecommendation.png" alt="query recommendation" width="800" />
 
-## Prefix Truncation
+### Searching:
 
-The query recommendations list will be shown when the query is being typed.  
+<img src="imgs/searching.png" alt="searching" width="800" />
 
-![prefix truncation](img/prefixTruncation.png)
+### Result page:
+
+<img src="imgs/resultPage.png" alt="result page" width="800" />
