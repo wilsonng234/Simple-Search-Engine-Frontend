@@ -18,3 +18,9 @@ Enter the query to search and click enter or submit icon to search top 50 releva
 
 ![search bar](img/searchBar.png)
 ![search result](img/searchResult.png)
+
+## Prefix Truncation
+
+The query recommendations list will be shown when the query is being typed.  
+
+![prefix truncation](img/prefixTruncation.png)
