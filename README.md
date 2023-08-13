@@ -6,7 +6,7 @@ NodeJS: version 16.15.1
 
 ## Getting started
 
-1. `npm install` to install the dependencies
+1. `npm ci` to install the dependencies
 2. `npm start` to run the UI
 3. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
