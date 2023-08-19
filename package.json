@@ -1,5 +1,5 @@
 {
-  "name": "simple-search-engine-ui",
+  "name": "simple-search-engine-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
