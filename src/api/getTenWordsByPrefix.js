@@ -1,6 +1,6 @@
 import api from "./axiosConfig.js";
 
-const getTenWordByPrefix = async (prefix) => {
+const getTenWordsByPrefix = async (prefix) => {
     try {
         return await api.get(
             `/api/v1/words/prefix?prefix=${(prefix)}`
@@ -11,4 +11,4 @@ const getTenWordByPrefix = async (prefix) => {
     }
 };
 
-export default getTenWordByPrefix;
+export default getTenWordsByPrefix;
