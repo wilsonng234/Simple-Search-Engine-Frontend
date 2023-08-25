@@ -4,9 +4,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 
-import SearchBarAutocomplete from "./searchBar.styles";
+import SearchBarAutocomplete from "components/search-bar/searchBar.styles";
 
-import getTenWordsByPrefix from "../../api/getTenWordsByPrefix";
+import getTenWordsByPrefix from "api/getTenWordsByPrefix";
 
 const SearchBar = ({ setQuery }) => {
     // This is only for query display purposes

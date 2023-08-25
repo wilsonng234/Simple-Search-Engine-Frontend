@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import DocumentCards from "./components/document/documentCards";
+import DocumentCards from "components/document/documentCards";
 
 const AppDocumentCards = styled(DocumentCards)({
     width: "80%",

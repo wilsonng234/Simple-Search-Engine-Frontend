@@ -1,14 +1,13 @@
 import React from "react";
 
-import logo from "./icon/logo.svg";
-import "./App.css";
+import logo from "icon/logo.svg";
+import "App.css";
 
-import getDocumentsByQuery from "./api/getDocumentsByQuery";
-import { AppDocumentCards } from "./App.styles";
-import SearchBar from "./components/search-bar/searchBar";
+import getDocumentsByQuery from "api/getDocumentsByQuery";
+import { AppDocumentCards } from "App.styles";
+import SearchBar from "components/search-bar/searchBar";
 import ReactLoading from "react-loading";
-import CrawlerDialog from "./components/crawler-dialog/crawlerDialog";
-
+import CrawlerDialog from "components/crawler-dialog/crawlerDialog";
 
 function App() {
     const [documents, setDocuments] = React.useState([]);

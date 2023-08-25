@@ -1,10 +1,8 @@
-import api from "./axiosConfig.js";
+import api from "api/axiosConfig";
 
 const getTenWordsByPrefix = async (prefix) => {
     try {
-        return await api.get(
-            `/api/v1/words/prefix?prefix=${(prefix)}`
-        );
+        return await api.get(`/api/v1/words/prefix?prefix=${prefix}`);
     } catch (error) {
         console.error(error);
         return Promise.reject(error);

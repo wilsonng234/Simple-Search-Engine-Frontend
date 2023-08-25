@@ -1,13 +1,13 @@
 import React from "react";
-import "./documentCard.css";
+import "components/document/documentCard.css";
 
 import { Card, CardContent, Divider, Typography } from "@mui/material";
-import LinkTypography from "./linkTypography";
-import TitleTypography from "./titleTypography";
-import KeyValueDisplay from "./keyValueDisplay";
+import LinkTypography from "components/document/linkTypography";
+import TitleTypography from "components/document/titleTypography";
+import KeyValueDisplay from "components/document/keyValueDisplay";
 
-import getParentLinksByUrl from "../../api/getParentLinksByUrl";
-import ScoreTypography from "./scoreTypography";
+import getParentLinksByUrl from "api/getParentLinksByUrl";
+import ScoreTypography from "components/document/scoreTypography";
 
 const DocumentCard = ({ document }) => {
     const {

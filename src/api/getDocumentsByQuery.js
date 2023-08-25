@@ -1,4 +1,4 @@
-import api from "./axiosConfig.js";
+import api from "api/axiosConfig";
 
 const getDocumentsByQuery = async (query) => {
     return await api.get(
