@@ -2,7 +2,7 @@
 
 ## Installation
 
-NodeJS: version 16.15.1
+Node.js: version 18.16.0
 
 ## Getting started
 
