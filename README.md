@@ -2,7 +2,7 @@
 
 ## Installation
 
-NodeJS: version 16.15.1
+Node.js: version 18.16.0
 
 ## Getting started
 
@@ -29,6 +29,6 @@ The api endpoint could be modified in [axiosConfig.js](src/api/axiosConfig.js)
 
 <img src="imgs/searching.png" alt="searching" width="800" />
 
-### Result page:
+### Results page:
 
 <img src="imgs/resultPage.png" alt="result page" width="800" />
