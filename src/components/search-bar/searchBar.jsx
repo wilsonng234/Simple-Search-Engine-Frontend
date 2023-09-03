@@ -5,14 +5,22 @@ import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 
 import SearchBarAutocomplete from "components/search-bar/searchBar.styles";
-
 import getTenWordsByPrefix from "api/getTenWordsByPrefix";
 
-const SearchBar = ({ setQuery }) => {
-    // This is only for query display purposes
-    const [queryDisplayed, setQueryDisplayed] = React.useState("");
+import { useSearchParams, useNavigate } from "react-router-dom";
+
+const SearchBar = () => {
+    const navigate = useNavigate();
+    const [searchParam] = useSearchParams();
+    const q = searchParam.get("q");
+
+    const [queryDisplayed, setQueryDisplayed] = React.useState(q || "");
     const [openRecommendations, setOpenRecommendations] = React.useState(false);
     const [recommendations, setRecommendations] = React.useState([]);
+
+    React.useEffect(() => {
+        setQueryDisplayed(q || "");
+    }, [q]);
 
     React.useEffect(() => {
         try {
@@ -83,19 +91,20 @@ const SearchBar = ({ setQuery }) => {
     };
 
     const handleKeyDown = (event) => {
-        if (event.key === "Enter") {
-            setQuery(queryDisplayed);
+        if (event.key === "Enter" && queryDisplayed.length !== 0) {
+            navigate({ pathname: "/search", search: `?q=${queryDisplayed}` });
             setOpenRecommendations(false);
         }
     };
 
     const handleSearchIconClick = () => {
-        setQuery(queryDisplayed);
+        if (queryDisplayed.length !== 0)
+            navigate({ pathname: "/search", search: `?q=${queryDisplayed}` });
     };
 
     const handleOnSelectItem = (event, newValue) => {
+        navigate({ pathname: "/search", search: `?q=${newValue}` });
         setQueryDisplayed(newValue);
-        setQuery(newValue);
     };
 
     const handleOpenRecommendations = (event) => {
@@ -129,6 +138,7 @@ const SearchBar = ({ setQuery }) => {
     return (
         <SearchBarAutocomplete
             id="search-bar-autocomplete"
+            value={queryDisplayed}
             freeSolo
             disableClearable
             options={recommendations}
