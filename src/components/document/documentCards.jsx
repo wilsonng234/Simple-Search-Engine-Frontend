@@ -1,5 +1,5 @@
 import React from "react";
-import DocumentCard from "./documentCard";
+import DocumentCard from "components/document/documentCard";
 
 const DocumentCards = ({ documents, className }) => {
     return (

@@ -8,7 +8,7 @@ import {
     DialogTitle,
     Typography,
 } from "@mui/material";
-import postCrawlingRequest from "../../api/postCrawlingRequest";
+import postCrawlingRequest from "api/postCrawlingRequest";
 import Loading from "react-loading";
 
 const CrawlerDialog = ({ openCrawlerDialog, setOpenCrawlerDialog }) => {

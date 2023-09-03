@@ -1,18 +1,20 @@
 import React from "react";
 
-import logo from "./icon/logo.svg";
-import "./App.css";
+import logo from "icon/mushroom.svg";
+import "App.css";
+import { AppDocumentCards } from "App.styles";
+import getDocumentsByQuery from "api/getDocumentsByQuery";
+import SearchBar from "components/search-bar/searchBar";
+import CrawlerDialog from "components/crawler-dialog/crawlerDialog";
 
-import getDocumentsByQuery from "./api/getDocumentsByQuery";
-import { AppDocumentCards } from "./App.styles";
-import SearchBar from "./components/search-bar/searchBar";
 import ReactLoading from "react-loading";
-import CrawlerDialog from "./components/crawler-dialog/crawlerDialog";
-
+import Typography from "@mui/material/Typography";
+import { Routes, Route, useSearchParams } from "react-router-dom";
 
 function App() {
+    const [searchParam] = useSearchParams();
+    const q = searchParam.get("q");
     const [documents, setDocuments] = React.useState([]);
-    const [query, setQuery] = React.useState("");
     const [showLoading, setShowLoading] = React.useState(false);
     const [openCrawlerDialog, setOpenCrawlerDialog] = React.useState(false);
 
@@ -20,7 +22,7 @@ function App() {
         const fetchDocumentsByQuery = async () => {
             setShowLoading(true);
             try {
-                const response = await getDocumentsByQuery(query);
+                const response = await getDocumentsByQuery(q || "");
                 setDocuments(response.data);
             } catch (error) {
                 console.log(error);
@@ -29,8 +31,12 @@ function App() {
             }
         };
 
-        if (query.length !== 0) fetchDocumentsByQuery();
-    }, [query]);
+        if (q !== null && q.length !== 0) {
+            fetchDocumentsByQuery();
+        } else {
+            setDocuments([]);
+        }
+    }, [q]);
 
     const handleClickOpenDialog = () => {
         setOpenCrawlerDialog(true);
@@ -45,9 +51,31 @@ function App() {
                     alt="logo"
                     onClick={handleClickOpenDialog}
                 />
-                <SearchBar setQuery={setQuery} />
-                {showLoading && <ReactLoading type={"bars"} color="#0080FF" />}
-                {!showLoading && <AppDocumentCards documents={documents} />}
+                <SearchBar />
+                <Routes>
+                    <Route
+                        index
+                        element={
+                            <Typography
+                                sx={{ marginTop: "-10px" }}
+                                variant={"caption"}
+                                color="text.secondary"
+                            >
+                                Hint: Click the icon to crawl pages
+                            </Typography>
+                        }
+                    />
+                    <Route
+                        path="/search"
+                        element={
+                            showLoading ? (
+                                <ReactLoading type={"bars"} color="#0080FF" />
+                            ) : (
+                                <AppDocumentCards documents={documents} />
+                            )
+                        }
+                    />
+                </Routes>
             </header>
 
             <CrawlerDialog

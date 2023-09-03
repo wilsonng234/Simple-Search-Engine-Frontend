@@ -1,4 +1,4 @@
-import api from "./axiosConfig.js";
+import api from "api/axiosConfig";
 
 const postCrawlingRequest = async (url, pages) => {
     let endpoint = `/api/v1/crawler?`;
