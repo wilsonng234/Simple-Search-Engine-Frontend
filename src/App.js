@@ -1,6 +1,6 @@
 import React from "react";
 
-import logo from "icon/logo.svg";
+import logo from "icon/mushroom.svg";
 import "App.css";
 import { AppDocumentCards } from "App.styles";
 import getDocumentsByQuery from "api/getDocumentsByQuery";
