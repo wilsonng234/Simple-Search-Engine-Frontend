@@ -32,4 +32,4 @@ The api endpoint could be modified in [axiosConfig.js](src/api/axiosConfig.js)
 
 ### Results page:
 
-<img src="imgs/resultPage.png" alt="result page" width="800" />
+<img src="imgs/resultsPage.png" alt="result page" width="800" />
