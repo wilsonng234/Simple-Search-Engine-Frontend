@@ -29,6 +29,6 @@ The api endpoint could be modified in [axiosConfig.js](src/api/axiosConfig.js)
 
 <img src="imgs/searching.png" alt="searching" width="800" />
 
-### Result page:
+### Results page:
 
 <img src="imgs/resultPage.png" alt="result page" width="800" />
